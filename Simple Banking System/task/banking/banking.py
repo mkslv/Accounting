@@ -2,6 +2,9 @@
 import random
 
 
+def get_checksum(CARD.card_nm):
+
+
 class Card:
     pin: str
     card_nm: str
@@ -73,3 +76,7 @@ while running:
         else:
             print("Wrong card number or PIN!")
 print("Bye!")
+
+
+
+nums:array = []
