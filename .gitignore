@@ -1,0 +1,8 @@
+*.yaml
+requirements.txt
+.idea
+Advanced system/
+Card anatomy/
+i'm so little/
+Luhn algorithm/
+tests.py
