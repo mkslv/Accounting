@@ -1,4 +1,3 @@
-
 import random
 
 
@@ -11,18 +10,17 @@ class Accounting:
         while True:
             print("1. Create an account\n2. Log into account\n0. Exit")
             cursor: str = input()
-            if cursor == 1:
+            if cursor == '1':
                 self.create_account()
-            elif cursor == 2:
-                entered_card: str = input()
-                entered_pin: str = input()
+            elif cursor == '2':
+                entered_card: str = input('Enter your card number:\n')
+                entered_pin: str = input('Enter your PIN:\n')
                 if self.cards[entered_card]['PIN'] == entered_pin:
                     print("You have successfully logged in!")
                     self.account(entered_card)
                 else:
                     print("Wrong card number or PIN!")
-            # TODO: login и переход на другой вью
-            elif cursor == 0:
+            elif cursor == '0':
                 print('Bye!')
                 exit()
             else:
@@ -30,21 +28,20 @@ class Accounting:
 
     def account(self, card: str) -> None:
         while True:
-            print(" 1. Balance\n2. Log out\n0. Exit")
+            print("1. Balance\n2. Log out\n0. Exit")
             cursor = input()
-            if cursor == 1:
-                # TODO: add balance
-                print(f"Balance: {self.cards[card]['Balance']}")
-            elif cursor == 2:
+            if cursor == '1':
+                self.print_balance(card)
+            elif cursor == '2':
                 print("You have successfully logged out!")
                 return
-            elif cursor == 0:
+            elif cursor == '0':
                 print('Bye!')
                 exit()
             else:
                 print('Unknown option.\n')
 
-    def print_ballance(self, card) -> None:
+    def print_balance(self, card) -> None:
         print(f"Balance: {self.cards[card]['Balance']}")
 
     @staticmethod
@@ -55,7 +52,6 @@ class Accounting:
         return card, pin
 
     def create_account(self) -> None:
-        # TODO: create account заполнить
         card, pin = self.generate_numbers()
         self.cards[card] = {'PIN': pin, 'Balance': 0}
         print("Your card has been created")
@@ -64,4 +60,5 @@ class Accounting:
         print("Your card PIN:")
         print(f"{pin}")
 
-Accounting.log_in_menu()
+
+Accounting().log_in_menu()
