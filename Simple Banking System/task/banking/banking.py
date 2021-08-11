@@ -1,82 +1,67 @@
-# Write your code here
+
 import random
 
 
-def get_checksum(CARD.card_nm):
-
-
-class Card:
-    pin: str
-    card_nm: str
-    all_cards = []
+class Accounting:
 
     def __init__(self):
-        self.acc_nm = str(random.randint(0, 999_999_999)).zfill(9)
-        self.checksum = 0
-        self.card_nm = f"400000{self.acc_nm}{self.checksum}"
-        self.pin = str(random.randint(0, 9999)).zfill(4)
-        self.balance = 0
-        Card.all_cards.append(self)
+        self.cards: dict = dict()
+
+    def log_in_menu(self) -> None:
+        while True:
+            print("1. Create an account\n2. Log into account\n0. Exit")
+            cursor: str = input()
+            if cursor == 1:
+                self.create_account()
+            elif cursor == 2:
+                entered_card: str = input()
+                entered_pin: str = input()
+                if self.cards[entered_card]['PIN'] == entered_pin:
+                    print("You have successfully logged in!")
+                    self.account(entered_card)
+                else:
+                    print("Wrong card number or PIN!")
+            # TODO: login и переход на другой вью
+            elif cursor == 0:
+                print('Bye!')
+                exit()
+            else:
+                print('Unknown option.')
+
+    def account(self, card: str) -> None:
+        while True:
+            print(" 1. Balance\n2. Log out\n0. Exit")
+            cursor = input()
+            if cursor == 1:
+                # TODO: add balance
+                print(f"Balance: {self.cards[card]['Balance']}")
+            elif cursor == 2:
+                print("You have successfully logged out!")
+                return
+            elif cursor == 0:
+                print('Bye!')
+                exit()
+            else:
+                print('Unknown option.\n')
+
+    def print_ballance(self, card) -> None:
+        print(f"Balance: {self.cards[card]['Balance']}")
+
+    @staticmethod
+    def generate_numbers():
+        checksum: str = '0'
+        card, pin = ('400000' + str(random.randint(0, 999_999_999)).zfill(9) + checksum,
+                     str(random.randint(0, 9999)).zfill(4))
+        return card, pin
+
+    def create_account(self) -> None:
+        # TODO: create account заполнить
+        card, pin = self.generate_numbers()
+        self.cards[card] = {'PIN': pin, 'Balance': 0}
         print("Your card has been created")
         print("Your card number:")
-        print("{}".format(self.card_nm))
+        print(f"{card}")
         print("Your card PIN:")
-        print(self.pin)
+        print(f"{pin}")
 
-    def print_ballance(self):
-        print(f"Balance: {self.balance}")
-
-    def check_credentials(self, entered_card_nm, enterd_pin):
-        """
-        :param entered_card_nm: введенный номер карты при входе в систему
-        :param enterd_pin: введенный пин кодек
-        :return: возвращает тру фолс на наличе параметров
-        """
-        if entered_card_nm == self.card_nm and enterd_pin == self.pin:
-            print("You have successfully logged in!")
-            return True
-        else:
-            print("Wrong card number or PIN!")
-            return False
-
-
-running: bool = True
-
-while running:
-    cursor = int(input("""
-        1. Create an account
-        2. Log into account
-        0. Exit
-    """))
-    if cursor == 0:
-        running = False
-
-    elif cursor == 1:
-        my_card = Card()
-        continue
-
-    elif cursor == 2:
-        entered_card_nm = input("Enter your card number:")
-        enterd_pin = input("Enter your PIN:")
-        if my_card.check_credentials(entered_card_nm, enterd_pin):
-            while True:
-                coursor2 = int(input("""
-                    1. Balance
-                    2. Log out
-                    0. Exit
-                """))
-                if coursor2 == 0:
-                    running = False
-                    break
-                elif coursor2 == 1:
-                    print(f"Balance: {my_card.balance}")
-                elif coursor2 == 2:
-                    print("You have successfully logged out!")
-                    break
-        else:
-            print("Wrong card number or PIN!")
-print("Bye!")
-
-
-
-nums:array = []
+Accounting.log_in_menu()
